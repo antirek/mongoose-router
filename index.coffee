@@ -1,12 +1,14 @@
 express = require 'express'
 bodyParser = (require 'body-parser').json()
-createRouter = (Model)->
+
+mongooseRouter = (Model)->
   router = express.Router()
   router.use bodyParser
   router.route '/'
   
   .get (req, res) ->
     Model.find {}, (err, models) ->
+      console.log err, models     
       res.json models
 
   .post (req, res, next) ->
@@ -48,4 +50,4 @@ createRouter = (Model)->
       res.json req.body
   router
 
-module.exports = createRouter
+module.exports = mongooseRouter
