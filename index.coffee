@@ -4,13 +4,11 @@ bodyParser = (require 'body-parser').json()
 mongooseRouter = (Model)->
   router = express.Router()
   router.use bodyParser
-  router.route '/'
   
+  router.route '/'
   .get (req, res) ->
-    Model.find {}, (err, models) ->
-      console.log err, models     
+    Model.find {}, (err, models) ->      
       res.json models
-
   .post (req, res, next) ->
     model = new Model req.body
     model.save (err) ->
@@ -36,7 +34,6 @@ mongooseRouter = (Model)->
           next err
         else
           res.json message: 'success'
-
   .post (req, res, next) ->
     data = JSON.parse JSON.stringify req.body
     delete data._id
@@ -48,6 +45,7 @@ mongooseRouter = (Model)->
         next err
       else
       res.json req.body
+
   router
 
 module.exports = mongooseRouter
