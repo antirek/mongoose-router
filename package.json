@@ -4,6 +4,7 @@
   "description": "Create router for mongoose model by schema",
   "main": "index.js",
   "scripts": {
+    "pretest":"gulp",
     "test": "jasmine",
     "prepublish": "gulp"
   },
