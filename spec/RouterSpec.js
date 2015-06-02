@@ -19,15 +19,19 @@ describe('Router', function () {
 
     it('get list models', function (done) {
         dbModel = {
-            find: function (query, callback) {
-                callback(null, models);
+            find: function () {
+                return {
+                    exec: function(callback) {
+                        callback(null, models);
+                    }
+                };
             }
         }
         
         app.use('/tanks', Router(dbModel));
 
         request(app)
-            .get('/tanks')            
+            .get('/tanks')
             .end(function (err, res){
                 expect(res.body).toEqual(models);
                 expect(res.status).toBe(200);

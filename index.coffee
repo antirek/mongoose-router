@@ -7,8 +7,17 @@ mongooseRouter = (Model)->
   
   router.route '/'
   .get (req, res) ->
-    Model.find {}, (err, models) ->      
+    modelQuery = Model.find()
+    query = req.query
+    if query.$limit and query.$offset
+      modelQuery.skip(query.$offset).limit(query.$limit)
+    if query.$sort
+      modelQuery.sort query.$sort
+    if query.$filter
+      modelQuery.where JSON.parse query.$filter
+    modelQuery.exec (err, models) ->
       res.json models
+
   .post (req, res, next) ->
     model = new Model req.body
     model.save (err) ->
