@@ -4,7 +4,7 @@ Create router for mongoose model by schema [REST & CRUD]
 
 ## Install
 
-> npm install mongoose-model [--save]
+> npm install mongoose-router [--save]
 
 
 ## Use 
